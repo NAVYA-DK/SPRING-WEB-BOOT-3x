@@ -9,6 +9,7 @@ public class SignupDTO {
 	private String passportFlag;
 	private String photo;
 	private int hid;
+	private String role;
 	
 	
 	
@@ -70,7 +71,13 @@ public class SignupDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
+
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 
 }

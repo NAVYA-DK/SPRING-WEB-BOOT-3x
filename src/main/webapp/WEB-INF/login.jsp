@@ -34,6 +34,14 @@
   	            <button type="submit" class="btn btn-primary">Login</button>
   	            
   	            <button type="reset" class="btn btn-danger">Reset</button>
+  	            <a href="signup">
+  	           		  <button type="button" class="btn btn-warning">Signup</button>
+  	             </a>
+  	             
+  	              
+  	             <a href="changePassword">
+  	           		  <button type="button" class="btn btn-primary">Reset Password</button>
+  	             </a>
   	  </div>
   	  </form>
   	  

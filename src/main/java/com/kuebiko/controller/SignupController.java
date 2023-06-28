@@ -1,6 +1,7 @@
 package com.kuebiko.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,15 +45,40 @@ public class SignupController {
 			}
 		}
 	
-	@PostMapping("/signup")
-	public String createSignup(@RequestParam String username, 
-			@RequestParam String gender,@RequestParam String email,Model model) {
-		    //below method will save data inside database
-		   signupService.persist(username, email, gender);
+		@PostMapping("/signup")
+		public String createSignup(@ModelAttribute SignupDTO signupDTO,Model model) {
+			    //below method will save data inside database
+			     if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
+					    model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
+					    return "signup";
+				 }
+		  	   
+			    signupService.persist(signupDTO);
+			    model.addAttribute("signupDTO",new SignupDTO());
 			model.addAttribute("message","Ahaha DOne!!");
 			return "signup";
 	}
 	
+	@GetMapping("changePassword")
+	public String showChangePassword() {
+		  return "changePassword";
+	}
+
+	@PostMapping("changePassword")
+	public String postChangePassword(String email,String newPassword , String confirmPassword, Model model) {
+
+		if(!signupService.findByEmail(email).isPresent()) {
+			model.addAttribute("message","Sorry, this email is not valid.");
+			  return "changePassword";
+		}else if(newPassword!=null && !newPassword.equals(confirmPassword)) {
+			model.addAttribute("message","New password and confirm password does not match.");
+			  return "changePassword";
+		}
+		signupService.updatePasswordByEmail(email, newPassword);
+		model.addAttribute("message","Your new password is updated successfully..");
+		  return "login";
+	}
+
 	
 	@GetMapping({"/signup","/","/cool","/fool"})
 	public String showSignup() {
