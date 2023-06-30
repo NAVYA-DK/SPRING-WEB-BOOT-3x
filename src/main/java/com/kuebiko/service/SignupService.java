@@ -1,7 +1,6 @@
 package com.kuebiko.service;
 
 import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,8 +59,18 @@ public class SignupService {
 		signupRepository.save(entity);
 	}
 	
+	public List<SignupDTO>  findAllByRole(String role) {
+		 List<SignupEntity> entityList=signupRepository.findByRole(role);
+		 return convertIntoDTO(entityList);
+	}
+	
+	
 	public List<SignupDTO>  findAll() {
 		 List<SignupEntity> entityList=signupRepository.findAll();
+		 return convertIntoDTO(entityList);
+	}
+	
+	private List<SignupDTO> convertIntoDTO( List<SignupEntity> entityList){
 		 List<SignupDTO> dtosList=new ArrayList<SignupDTO>();
 		 for(SignupEntity entity : entityList) {
 			 SignupDTO dto=new SignupDTO();
@@ -73,7 +82,6 @@ public class SignupService {
 			 }else {
 				 dto.setPassportFlag("no");
 			 }
-			 
 			 dtosList.add(dto);
 		 }
 		 return dtosList;
@@ -105,12 +113,32 @@ public class SignupService {
 	
 	
 	//Optional<SignupEntity> - >> Optional<SignupDTO>
+		public Optional<SignupDTO> findBySid(int sid) {
+			Optional<SignupEntity> optional=signupRepository.findById(sid);
+			SignupDTO signupDTO = null;
+			if (optional.isPresent()) {
+				signupDTO=new SignupDTO();
+				BeanUtils.copyProperties(optional.get(), signupDTO);
+			}
+			// Optional - class which was introduce java8 -2014
+			return Optional.ofNullable(signupDTO);
+		}
+	
+	//Optional<SignupEntity> - >> Optional<SignupDTO>
 	public Optional<SignupDTO> findByEmail(String email) {
 		Optional<SignupEntity> optional=signupRepository.findByEmail(email);
 		SignupDTO signupDTO = null;
 		if (optional.isPresent()) {
 			signupDTO=new SignupDTO();
 			BeanUtils.copyProperties(optional.get(), signupDTO);
+			 Optional<PassportEntity> poptional=passportRepository.findBySignupEntityId(signupDTO.getSid());
+			 if(poptional.isPresent()) {
+				 signupDTO.setPassportFlag("yes");
+				 signupDTO.setPhoto(optional.get().getPhoto());
+			 }else {
+				 signupDTO.setPassportFlag("no");
+			 }
+			
 		}
 		// Optional - class which was introduce java8 -2014
 		return Optional.ofNullable(signupDTO);

@@ -41,5 +41,15 @@ public class PassportService {
 		//since I have dependency on signup entity
 		passportRepository.save(passportEntity);
 	}
+	public void saveByParentEmail(PassportDTO passportDTO) {
+		PassportEntity passportEntity=new PassportEntity();
+		BeanUtils.copyProperties(passportDTO, passportEntity,new String[] {"sid","email"});
+		//THIS IS THERE ALREADY IN DB
+		SignupEntity sentity=signupRepository.findByEmailOrName(passportDTO.getEmail(),passportDTO.getEmail()).get();
+		passportEntity.setSignupEntity(sentity);
+		//passport entity says I will not go inside database with out singup entity
+		//since I have dependency on signup entity
+		passportRepository.save(passportEntity);
+	}
 
 }

@@ -1,7 +1,7 @@
 package com.kuebiko.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.SignupService;
 
@@ -33,40 +34,49 @@ public class SignupController {
 		
 		@GetMapping("/showData")
 		public String showSignups(Model model,HttpSession session) {
-			//WRITE LOGIC
+			
+			//Fetching data from session
 			SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
 			if(signupDTO==null) {
 				 model.addAttribute("message","It seems like session is expired!");
 				 return "login";
 			}else {
-				List<SignupDTO>  signupDTOs=signupService.findAll();
-				model.addAttribute("bananas", signupDTOs);
+				String currentRole=signupDTO.getRole();
+				if(currentRole.equals("Admin")) {
+					List<SignupDTO>  signupDTOs=signupService.findAllByRole("Customer");
+					model.addAttribute("bananas", signupDTOs);
+				}else {
+					Optional<SignupDTO> optional=signupService.findByEmail(signupDTO.getEmail());
+					List<SignupDTO> dtos=new ArrayList<SignupDTO>();
+					dtos.add(optional.get());
+					model.addAttribute("bananas", dtos);
+				}
 				 return "signups";
 			}
 		}
 	
-		@PostMapping("/signup")
-		public String createSignup(@ModelAttribute SignupDTO signupDTO,Model model) {
-			    //below method will save data inside database
-			     if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
-					    model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
-					    return "signup";
-				 }
-		  	   
-			    signupService.persist(signupDTO);
-			    model.addAttribute("signupDTO",new SignupDTO());
+	@PostMapping("/signup")
+	public String createSignup(@ModelAttribute SignupDTO signupDTO,Model model) {
+		    //below method will save data inside database
+		     if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
+				    model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
+				    return "signup";
+			 }
+	  	   
+		    signupService.persist(signupDTO);
+		    model.addAttribute("signupDTO",new SignupDTO());
 			model.addAttribute("message","Ahaha DOne!!");
 			return "signup";
 	}
+	
 	
 	@GetMapping("changePassword")
 	public String showChangePassword() {
 		  return "changePassword";
 	}
-
+	
 	@PostMapping("changePassword")
 	public String postChangePassword(String email,String newPassword , String confirmPassword, Model model) {
-
 		if(!signupService.findByEmail(email).isPresent()) {
 			model.addAttribute("message","Sorry, this email is not valid.");
 			  return "changePassword";
@@ -78,7 +88,6 @@ public class SignupController {
 		model.addAttribute("message","Your new password is updated successfully..");
 		  return "login";
 	}
-
 	
 	@GetMapping({"/signup","/","/cool","/fool"})
 	public String showSignup() {
@@ -117,7 +126,7 @@ public class SignupController {
 	 */
 	@PostMapping("/auth")
 	public String postLogin(@RequestParam String username, @RequestParam String password,Model pravat,HttpSession session) {
-		Optional<SignupDTO> optional=signupService.findByName(username);
+		Optional<SignupDTO> optional=signupService.findByEmailAndPassword(username,password);
 		if(optional.isPresent()) {
 			//Hey user is there
 			//Create session object and add user details
