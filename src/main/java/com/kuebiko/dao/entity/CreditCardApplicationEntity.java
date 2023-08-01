@@ -2,7 +2,6 @@ package com.kuebiko.dao.entity;
 
 import java.sql.Timestamp;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,12 +78,13 @@ public class CreditCardApplicationEntity {
 		this.nameOnCard = nameOnCard;
 	}
 
-	@Column(length = 10)
-	public String getCLimit() {
+	
+	@Column(length = 20)
+	public String getClimit() {
 		return climit;
 	}
 
-	public void setCLimit(String climit) {
+	public void setClimit(String climit) {
 		this.climit = climit;
 	}
 

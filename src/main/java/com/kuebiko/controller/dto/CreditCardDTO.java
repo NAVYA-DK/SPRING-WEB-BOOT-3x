@@ -1,94 +1,133 @@
 package com.kuebiko.controller.dto;
 
-public class CreditCardDTO 
-{
-private int sid;
-private int cid;
-private String email;
-private String type;
-private String cardName;
-private String nameOnCard;
-private String climit;
-private String status;
-private String applicationId;
+public class CreditCardDTO {
 
-public int getSid() {
-	return sid;
-}
+	private int sid;
+	private int cid;
+	private String email;
+	private String type;
+	private String cardName;
+	private String nameOnCard;
+	private String climit;
+	private String status;
+	private String applicationId;
+	private byte[] photo;
+	
+	private String number;
+	private String expDate;
+	private int cvv;
+	
+	
 
-public void setSid(int sid) {
-	this.sid = sid;
-}
+	public String getNumber() {
+		return number;
+	}
 
-public int getCid() {
-	return cid;
-}
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-public void setCid(int cid) {
-	this.cid = cid;
-}
+	public String getExpDate() {
+		return expDate;
+	}
 
-public String getEmail() {
-	return email;
-}
+	public void setExpDate(String expDate) {
+		this.expDate = expDate;
+	}
 
-public void setEmail(String email) {
-	this.email = email;
-}
+	public int getCvv() {
+		return cvv;
+	}
 
-public String getType() {
-	return type;
-}
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
 
-public void setType(String type) {
-	this.type = type;
-}
+	public byte[] getPhoto() {
+		return photo;
+	}
 
-public String getCardName() {
-	return cardName;
-}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 
-public void setCardName(String cardName) {
-	this.cardName = cardName;
-}
+	public int getSid() {
+		return sid;
+	}
 
-public String getNameOnCard() {
-	return nameOnCard;
-}
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
 
-public void setNameOnCard(String nameOnCard) {
-	this.nameOnCard = nameOnCard;
-}
+	public int getCid() {
+		return cid;
+	}
 
-public String getCLimit() {
-	return climit;
-}
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
 
-public void setCLimit(String climit) {
-	this.climit = climit;
-}
+	public String getEmail() {
+		return email;
+	}
 
-public String getStatus() {
-	return status;
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-public void setStatus(String status) {
-	this.status = status;
-}
+	public String getType() {
+		return type;
+	}
 
-public String getApplicationId() {
-	return applicationId;
-}
+	public void setType(String type) {
+		this.type = type;
+	}
 
-public void setApplicationId(String applicationId) {
-	this.applicationId = applicationId;
-}
+	public String getCardName() {
+		return cardName;
+	}
 
-@Override
-public String toString() {
-	return "CreditCardDTO [sid=" + sid + ", cid=" + cid + ", email=" + email + ", type=" + type + ", cardName="
-			+ cardName + ", nameOnCard=" + nameOnCard + ", climit=" + climit + ", status=" + status
-			+ ", applicationId=" + applicationId + "]";
-}
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getNameOnCard() {
+		return nameOnCard;
+	}
+
+	public void setNameOnCard(String nameOnCard) {
+		this.nameOnCard = nameOnCard;
+	}
+
+	public String getClimit() {
+		return climit;
+	}
+
+	public void setClimit(String climit) {
+		this.climit = climit;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	@Override
+	public String toString() {
+		return "CreditCardDTO [sid=" + sid + ", cid=" + cid + ", email=" + email + ", type=" + type + ", cardName="
+				+ cardName + ", nameOnCard=" + nameOnCard + ",climit=" + climit + ", status=" + status
+				+ ", applicationId=" + applicationId + "]";
+	}
 
 }

@@ -21,6 +21,10 @@ public class PassportService {
 	@Autowired
 	private PassportRepository passportRepository;
 	
+	public void deleteById(int pid) {
+		passportRepository.deleteById(pid);
+	}
+	
 	public PassportDTO findBySignupId(int sid) {
 		PassportDTO passportDTO=new PassportDTO();
 		 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(sid);
@@ -33,7 +37,6 @@ public class PassportService {
 	public void save(PassportDTO passportDTO) {
 		PassportEntity passportEntity=new PassportEntity();
 		BeanUtils.copyProperties(passportDTO, passportEntity,new String[] {"sid"});
-		
 		//THIS IS THERE ALREADY IN DB
 		SignupEntity sentity=signupRepository.findById(passportDTO.getSid()).get();
 		passportEntity.setSignupEntity(sentity);
@@ -41,6 +44,7 @@ public class PassportService {
 		//since I have dependency on signup entity
 		passportRepository.save(passportEntity);
 	}
+	
 	public void saveByParentEmail(PassportDTO passportDTO) {
 		PassportEntity passportEntity=new PassportEntity();
 		BeanUtils.copyProperties(passportDTO, passportEntity,new String[] {"sid","email"});

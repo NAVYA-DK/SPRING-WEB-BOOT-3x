@@ -1,18 +1,80 @@
 package com.kuebiko.dto;
 
+import java.util.Date;
+
 public class SignupDTO {
 	
 	private int sid;
 	private String name;
+	private String password;
 	private String email;
 	private String gender;
 	private String passportFlag;
+	private String creditCardFlag;
+	private String cardStatus;
 	private String photo;
 	private int hid;
 	private String role;
+	private String applicationId;
+	private String cardName;
+	private Date applyDate;
 	
-	
-	
+	public String getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public Date getApplyDate() {
+		return applyDate;
+	}
+
+	public void setApplyDate(Date applyDate) {
+		this.applyDate = applyDate;
+	}
+
+	public String getCardStatus() {
+		return cardStatus;
+	}
+
+	public void setCardStatus(String cardStatus) {
+		this.cardStatus = cardStatus;
+	}
+
+	public String getCreditCardFlag() {
+		return creditCardFlag;
+	}
+
+	public void setCreditCardFlag(String creditCardFlag) {
+		this.creditCardFlag = creditCardFlag;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public int getHid() {
 		return hid;
 	}
@@ -71,13 +133,7 @@ public class SignupDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
 	
 
 }

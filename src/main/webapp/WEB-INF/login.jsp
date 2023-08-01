@@ -10,7 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
+   <script type="text/javascript">
          var  pname='nagen';
           let tt= {
         		  email:"nagen@gmail.com",
@@ -38,7 +38,7 @@
   	  <form action="auth" method="post">
   	      <div style="width: 50%;">
   	            
-  	            <label>Username</label>
+  	            <label>Username/Email</label>
   	            <input type="text" name="username" class="form-control">
   	            <label>Password</label>
   	            <input type="password" name="password" class="form-control">
@@ -46,7 +46,8 @@
   	            <button type="submit" class="btn btn-primary">Login</button>
   	            
   	            <button type="reset" class="btn btn-danger">Reset</button>
-  	            <a href="signup">
+  	            
+  	             <a href="signup">
   	           		  <button type="button" class="btn btn-warning">Signup</button>
   	             </a>
   	             
